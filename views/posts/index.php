@@ -1,12 +1,14 @@
 <div class="container px-20">
-<p class="text-4xl pb-10 text-purple-900">Here is a list of all posts</p>
-<?php
-foreach ($posts as $post) { ?>
-    <p class="text-2xl leading-10">
-        <?php echo $post->Author; ?>
-        <a class="text-purple-900 underline" href="?controller=posts&action=show&ID=<?php echo $post->ID;?>">See content</a>
-    </p>
+    <p class="text-4xl pb-10 text-purple-900">Here is a list of all posts</p>
     <?php
-}
-?>
+    echo "<table class='table leading-10'><thead><tr><th class='pr-4'>Author</th><th>Post</th></tr></thead><tbody>";
+    foreach ($posts as $post) {
+        echo "<tr>";
+        echo "<td class='text-2xl pr-4'>" . $post->Author . "</td>";
+        echo "<td><a class='text-purple-900 text-2xl underline' href='?controller=posts&action=show&ID=" . $post->ID . "'>See content</a></td>";
+        echo "</tr>";
+        echo "<tr><td colspan='2'><hr></td></tr>";
+    }
+    echo "</tbody></table>";
+    ?>
 </div>

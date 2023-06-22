@@ -2,12 +2,19 @@
 class post {
     public $ID;
     public $Author;
+    public $Title;
     public $Content;
+    public $Slug;
+    public $Date;
 
-    public function __construct($ID, $Author, $Content){
+
+    public function __construct($ID, $Author, $Title, $Content, $Slug, $Date){
         $this->ID = $ID;
         $this->Author = $Author;
+        $this->Title = $Title;
         $this->Content = $Content;
+        $this->Slug = $Slug;
+        $this->Date = $Date;
     }
 
     public static function all() {
@@ -16,7 +23,7 @@ class post {
         $req = $db->query("SELECT * FROM posts");
 
         foreach ($req->fetchAll() as $post) {
-            $list[] = new Post($post["ID"], $post["Author"], $post["Content"]);
+            $list[] = new Post($post["ID"], $post["Author"], $post["Title"], $post["Content"], $post["Slug"], $post["Date"]);
         }
     return $list;
     }
@@ -26,6 +33,6 @@ class post {
         $req = $db->prepare("SELECT * FROM posts WHERE ID = :ID");
         $req->execute(["ID" => $ID]);
         $post = $req->fetch();
-        return new Post($post["ID"], $post["Author"], $post["Content"]);
+        return new Post($post["ID"], $post["Author"], $post["Title"], $post["Content"], $post["Slug"], $post["Date"]);
     }
 }
