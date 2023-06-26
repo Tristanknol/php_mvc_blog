@@ -5,10 +5,10 @@
     foreach ($posts as $post) {
         echo "<tr>";
         echo "<td class='text-2xl pr-4'>" . $post->Author . "</td>";
-        echo "<td><a href='?controller=posts&action=crud&ID=" . $post->ID . "'>Edit</a></td>";
-        echo "<td><a class='text-purple-900 text-2xl underline' href='?controller=posts&action=show&ID=" . $post->ID . "'>See content</a></td>";
+        echo "<td><a class='text-xl text-purple-900 underline' href='?controller=posts&action=crud&ID=" . $post->ID . "'>Edit</a></td>";
+        echo "<td><a class='text-purple-900 text-xl underline' href='?controller=posts&action=show&ID=" . $post->ID . "'>See content</a></td>";
         echo "</tr>";
-        echo "<tr><td colspan='2'><hr></td></tr>";
+        echo "<tr><td colspan='3'><hr></td></tr>";
     }
     echo "</tbody></table>";
     ?>
