@@ -10,10 +10,6 @@ class PagesController {
     }
 
     public function login() {
-        require_once ("views/pages/login.php");
-    }
-
-    public function loggedIn() {
-        require_once ("views/pages/logged-in.php");
+        require_once("views/user/login.php");
     }
 }

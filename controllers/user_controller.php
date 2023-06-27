@@ -15,7 +15,7 @@ require_once ("models/user.php");
  class UserController {
 //      function to show the login page
         public function showLogin() {
-            require_once ("views/pages/login.php");
+            require_once("views/user/login.php");
         }
 
     public function signIn() {
@@ -39,12 +39,15 @@ require_once ("models/user.php");
 // Function to sign out; destroy the session and navagate to the home page;
         public function signOut() {
             session_destroy();
-            header("location: localhost:8888/php_mvc_blog");
+            header("location: ?controller=user&action=logOut");
         }
 
+    public function showSignOut() {
+        require_once("views/user/logout.php");
+    }
 
         public function showSignUp() {
-            require_once ("views/pages/sign-up.php");
+            require_once("views/user/sign-up.php");
         }
 
         public function signUp() {

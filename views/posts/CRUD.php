@@ -1,4 +1,4 @@
-<?php
+<?php if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === TRUE) {
 $getid = isset($_GET['ID']) ? $_GET['ID'] : '';
 
 require_once "connection.php";
@@ -129,3 +129,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
         </div>
     <?php } ?>
 </div>
+<?php } else echo "<h1 class='text-3xl text-center text-purple-900'>You are not logged in so you can't edit posts.</h1>"; ?>

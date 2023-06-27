@@ -13,11 +13,14 @@
              <a class="text-white text-2xl lg:text-3xl" href="?controller=posts&action=index">Posts</a>
             </div>
          </div>
-         <a href="?controller=user&action=showLogin" class="text-white text-2xl lg:text-3xl">Login</a>
+         <?php
+         session_start();
+         if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === TRUE) {
+        echo "<a href='?controller=user&action=showSignOut' class='text-white text-2xl lg:text-3xl'>Logout</a>";
+         } else {echo "<a href='?controller=user&action=showLogin' class='text-white text-2xl lg:text-3xl'>Login</a>";} ?>
      </header>
      <section class="py-20">
         <?php
-        session_start();
         require_once "routes.php";
         ?>
         </section>

@@ -27,7 +27,7 @@ class user {
                     session_regenerate_id();
                     $_SESSION["name"] = $result["name"];
                     $_SESSION["loggedIn"] = TRUE;
-                    header("location: ?controller=pages&action=loggedIn");
+                    header("location: ?controller=user&action=loggedIn");
                 } else {
                     echo "incorrect password";
                 }
