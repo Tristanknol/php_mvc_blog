@@ -13,10 +13,13 @@
              <a class="text-white text-2xl lg:text-3xl" href="?controller=posts&action=index">Posts</a>
             </div>
          </div>
-         <a href="?controller=pages&action=login" class="text-white text-2xl lg:text-3xl">Login</a>
+         <a href="?controller=user&action=showLogin" class="text-white text-2xl lg:text-3xl">Login</a>
      </header>
      <section class="py-20">
-        <?php require_once "routes.php"; ?>
+        <?php
+        session_start();
+        require_once "routes.php";
+        ?>
         </section>
         <footer class="py-10 flex justify-center bg-purple-900">
             <footer class="text-xl text-white">©AMP-IT™ <?php echo date("Y"); ?></footer>
