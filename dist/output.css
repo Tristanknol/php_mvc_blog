@@ -990,6 +990,10 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:block {
+    display: block;
+  }
+
   .lg\:w-6\/12 {
     width: 50%;
   }

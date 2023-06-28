@@ -9,42 +9,9 @@ $post = $pdo->prepare("SELECT * FROM posts WHERE id = :id");
 $post->bindParam(':id', $getid);
 $post->execute();
 $postRow = $post->fetch();
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["checkSubmit"])) {
-    $updatepost = $pdo->prepare("UPDATE posts SET author = :author, title = :title, content = :content, slug = :slug, date = :date WHERE id = :id");
-    $deletepost = $pdo->prepare("DELETE FROM posts WHERE id = :id");
-
-    $id = isset($_POST['ID']) ? $_POST['ID'] : '';
-    $author = isset($_POST['Author']) ? $_POST['Author'] : '';
-    $title = isset($_POST['Title']) ? $_POST['Title'] : '';
-    $content = isset($_POST['Content']) ? $_POST['Content'] : '';
-    $slug = isset($_POST['Slug']) ? $_POST['Slug'] : '';
-    $date = isset($_POST['Date']) ? $_POST['Date'] : '';
-
-    $updatepost->bindParam(':id', $id);
-    $updatepost->bindParam(':author', $author);
-    $updatepost->bindParam(':title', $title);
-    $updatepost->bindParam(':content', $content);
-    $updatepost->bindParam(':slug', $slug);
-    $updatepost->bindParam(':date', $date);
-    $updatepost->execute();
-    header("refresh: 0");
-}
-
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
-    $deletepost = $pdo->prepare("DELETE FROM posts WHERE id = :id");
-    $id = isset($_POST['ID']) ? $_POST['ID'] : '';
-
-    $deletepost->bindParam(':id', $id);
-    $deletepost->execute();
-    echo "<div class='fixed top-0 bg-white text-center w-full h-full flex flex-col items-center justify-center'>
-            <h1 class='text-purple-900 font-bold text-6xl'>Post is deleted</h1>
-            <a class='text-2xl' href='?controller=posts&action=index'>Go back←</a>
-            </div>";
-}
 ?>
-
-<div class="container m-auto mt-5">
+<!--    Display the post in a table before editing or deleting it-->
+    <div class="container m-auto mt-5">
     <table class="w-full">
         <thead>
         <tr>
@@ -74,23 +41,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
                         <input type="hidden" name="Content" value="<?php echo $postRow["Content"]; ?>">
                         <input type="hidden" name="Slug" value="<?php echo $postRow["Slug"]; ?>">
                         <input type="hidden" name="Date" value="<?php echo $postRow["Date"]; ?>">
+<!--                        opens edit form-->
                         <input value="Edit" type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
                     </form>
-                    <form method="post">
+<!--                Add a form to delete the post there is also a delete function on the post index page-->
+                    <form action="?controller=posts&action=deletePost" method="post">
                         <input type="hidden" name="ID" value="<?php echo $postRow["ID"]; ?>">
-                        <input type="hidden" name="deleteSubmit">
                         <input value="Delete" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                     </form>
                 </td>
             </tr>
-        <?php } else { ?>
+        <?php }
+        // If the post doesn't exist, display a message
+        else { ?>
             <tr>
                 <td class="py-2 px-4" colspan="6">No post found.</td>
             </tr>
         <?php } ?>
         </tbody>
     </table>
-
+<!--check if the form has been submitted and if so, retrieve the values from the form-->
     <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $postId = isset($_POST["ID"]) ? $_POST["ID"] : '';
         $postAuthor = isset($_POST["Author"]) ? $_POST["Author"] : '';
@@ -99,8 +69,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
         $postSlug = isset($_POST["Slug"]) ? $_POST["Slug"] : '';
         $postDate = isset($_POST["Date"]) ? $_POST["Date"] : '';
         ?>
+
+<!--        Add a form to edit the post-->
         <div class="m-auto">
-            <form method="POST">
+            <form action="?controller=posts&action=editPost" method="POST">
                 <input type="hidden" name="ID" value="<?php echo $postId; ?>">
                 <div class="mb-3">
                     <label for="author" class="block mb-2">Author</label>
@@ -123,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
                     <input name="Date" id="date" class="w-full border border-gray-300 rounded py-2 px-4 mb-2" type="text" value="<?php echo date("Y-m-d G:i:s") ?>">
                 </div>
                 <div class="mb-3">
-                    <input name="checkSubmit" type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" value="Update">
+                    <input type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" value="Update">
                 </div>
             </form>
         </div>
