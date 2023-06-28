@@ -5,8 +5,9 @@
         <form action="?controller=user&action=signIn" method="POST" class="w-6/12 m-auto">
             <label class="text-2xl text-white">Email</label>
             <input class="w-full px-3 text-black bg-white rounded-xl my-5 py-3" name="email" type="email">
-            <label class="text-2xl text-white">Wachtwoord</label>
-            <input class="w-full px-3 text-black bg-white rounded-xl my-5 py-3" name="password" type="text">
+            <label class="text-2xl text-white">Password</label>
+            <input class="w-full px-3 text-black bg-white rounded-xl my-5 py-3" name="password" type="password">
+            <a href="?controller=user&action=showSignUp" class="text-white underline" href="">No account? Sign up</a><br><br>
             <input class="text-white px-10 py-2 bg-green-800 rounded-full" value="Login" type="submit">
         </form>
     </div>

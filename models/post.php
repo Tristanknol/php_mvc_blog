@@ -35,4 +35,23 @@ class post {
         $post = $req->fetch();
         return new Post($post["ID"], $post["Author"], $post["Title"], $post["Content"], $post["Slug"], $post["Date"]);
     }
+
+    public static function createPost() {
+        $pdo = Db::getInstance();
+        $createpost = $pdo->prepare("INSERT INTO posts (author, title, content, slug, date) VALUES (:author, :title, :content, :slug, :date)");
+        if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["createSubmit"])) {
+            $author = isset($_POST['Author']) ? $_POST['Author'] : '';
+            $title = isset($_POST['Title']) ? $_POST['Title'] : '';
+            $content = isset($_POST['Content']) ? $_POST['Content'] : '';
+            $slug = isset($_POST['Slug']) ? $_POST['Slug'] : '';
+            $date = isset($_POST['Date']) ? $_POST['Date'] : '';
+            $createpost->bindParam(':author', $author);
+            $createpost->bindParam(':title', $title);
+            $createpost->bindParam(':content', $content);
+            $createpost->bindParam(':slug', $slug);
+            $createpost->bindParam(':date', $date);
+            $createpost->execute();
+            header("Location: ?controller=posts&action=show&ID=" . $pdo->lastInsertId());
+        }
+    }
 }

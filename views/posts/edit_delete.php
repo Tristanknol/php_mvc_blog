@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["deleteSubmit"])) {
                 </div>
                 <div class="mb-3">
                     <label for="date" class="block mb-2">Date</label>
-                    <input name="Date" id="date" class="w-full border border-gray-300 rounded py-2 px-4 mb-2" type="text" value="<?php echo $postDate; ?>">
+                    <input name="Date" id="date" class="w-full border border-gray-300 rounded py-2 px-4 mb-2" type="text" value="<?php echo date("Y-m-d G:i:s") ?>">
                 </div>
                 <div class="mb-3">
                     <input name="checkSubmit" type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded" value="Update">

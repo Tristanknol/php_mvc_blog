@@ -9,14 +9,23 @@
 //show the result or the error
 
 
-//requere the model for the user
+//require the model for the user
 require_once ("models/user.php");
 
  class UserController {
+     public function loggedIn() {
+         require_once("views/user/logged-in.php");
+     }
 //      function to show the login page
         public function showLogin() {
             require_once("views/user/login.php");
         }
+
+         public function loggedOut() {
+            require_once("views/user/logged-out.php");
+        }
+
+
 
     public function signIn() {
 //        check the data for both post requests
@@ -39,11 +48,11 @@ require_once ("models/user.php");
 // Function to sign out; destroy the session and navagate to the home page;
         public function signOut() {
             session_destroy();
-            header("location: ?controller=user&action=logOut");
+            header("location: ?controller=user&action=loggedOut");
         }
 
-    public function showSignOut() {
-        require_once("views/user/logout.php");
+    public function showProfile() {
+        require_once("views/user/profile.php");
     }
 
         public function showSignUp() {
@@ -75,51 +84,8 @@ require_once ("models/user.php");
             $user = user::saveUser();
         }
 
+    public function editUser() {
+        user::editUser();
+    }
 
-        public function profile() {
-            require_once ("views/users/profile.php");
-        }
-
-        public function profileSubmit() {
-            $name = $_POST["name"];
-            $email = $_POST["email"];
-            $password = $_POST["password"];
-            $password2 = $_POST["password2"];
-            if ($password == $password2) {
-                $user = user::profile($name, $email, $password);
-            } else {
-                echo "passwords do not match";
-            }
-        }
-
-        public function delete() {
-            $user = user::delete();
-        }
-
-        public function deleteSubmit() {
-            $user = user::deleteSubmit();
-        }
-
-        public function index() {
-            $users = user::all();
-            require_once ("views/users/index.php");
-        }
-
-        public function show() {
-            if (!isset($_GET["ID"])) {
-                return call("pages", "error");
-            }
-            $user = user::find($_GET["ID"]);
-            require_once ("views/users/show.php");
-        }
-
-        public function create() {
-            require_once ("views/users/create.php");
-        }
-
-        public function createSubmit() {
-            $name = $_POST["name"];
-            $email = $_POST;
- }
-
- }
+}

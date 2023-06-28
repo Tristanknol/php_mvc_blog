@@ -19,7 +19,7 @@ function call($controller, $action) {
     $controller-> { $action }();
 }
 
-$controllers = array("pages" => ["home", "error", "login", "loggedIn"], "posts" => ["index", "show", "crud"], "user" => ["signIn", "signUp", "signOut", "showLogin"]);
+$controllers = array("pages" => ["home", "error"], "posts" => ["index", "create", "show", "edit_delete", "createPost"], "user" => ["login", "loggedIn" ,"signIn", "signOut", "loggedOut","showSignUp", "signUp", "showProfile", "editUser", "showLogin"]);
 
 if (array_key_exists($controller, $controllers)) {
     if (in_array($action, $controllers[$controller])) {
