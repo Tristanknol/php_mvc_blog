@@ -11,7 +11,8 @@ $post->execute();
 $postRow = $post->fetch();
 ?>
 <!--    Display the post in a table before editing or deleting it-->
-    <div class="container m-auto mt-5">
+<!--    desktop version-->
+    <div class="container hidden lg:block m-auto mt-5">
     <table class="w-full">
         <thead>
         <tr>
@@ -60,6 +61,68 @@ $postRow = $post->fetch();
         <?php } ?>
         </tbody>
     </table>
+    </div>
+
+<!--        mobile version-->
+        <!--    Display the post in a table before editing or deleting it-->
+        <div class="container lg:hidden m-auto mt-5">
+            <?php if ($postRow) { // Only render the row if the post exists ?>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="py-2 px-4">
+                        <strong>ID:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["ID"]; ?>
+                    </div>
+                    <div class="py-2 px-4">
+                        <strong>Author:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["Author"]; ?>
+                    </div>
+                    <div class="py-2 px-4">
+                        <strong>Title:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["Title"]; ?>
+                    </div>
+                    <div class="py-2 px-4">
+                        <strong>Content:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["Content"]; ?>
+                    </div>
+                    <div class="py-2 px-4">
+                        <strong>Slug:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["Slug"]; ?>
+                    </div>
+                    <div class="py-2 px-4">
+                        <strong>Date:</strong>
+                    </div>
+                    <div class="py-2 col-span-2 px-4">
+                        <?php echo $postRow["Date"]; ?>
+                    </div>
+                    <div class="col-span-3 flex justify-center py-2 px-4">
+                        <form class="px-10" method="post">
+                            <input type="hidden" name="ID" value="<?php echo $postRow["ID"]; ?>">
+                            <input type="hidden" name="Author" value="<?php echo $postRow["Author"]; ?>">
+                            <input type="hidden" name="Title" value="<?php echo $postRow["Title"]; ?>">
+                            <input type="hidden" name="Content" value="<?php echo $postRow["Content"]; ?>">
+                            <input type="hidden" name="Slug" value="<?php echo $postRow["Slug"]; ?>">
+                            <input type="hidden" name="Date" value="<?php echo $postRow["Date"]; ?>">
+                            <input value="Edit" type="submit" class="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded">
+                        </form>
+                        <form class="px-10" action="?controller=posts&action=deletePost" method="post">
+                            <input type="hidden" name="ID" value="<?php echo $postRow["ID"]; ?>">
+                            <input value="Delete" type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        </form>
+                    </div>
+                </div>
+            <?php } ?>
+
+
 <!--check if the form has been submitted and if so, retrieve the values from the form-->
     <?php if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $postId = isset($_POST["ID"]) ? $_POST["ID"] : '';

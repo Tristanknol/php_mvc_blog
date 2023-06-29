@@ -106,13 +106,11 @@ class user {
     public static function editUser() {
         $db = db::getInstance();
         try {
-            $query = "UPDATE users SET name = :name, email = :email, password = :password";
-            $stmt = $db->prepare($query);
-
             // Sanitize and validate input data
             $name = filter_var($_POST['RegisterName'], FILTER_SANITIZE_STRING);
             $email = filter_var($_POST['RegisterEmail'], FILTER_VALIDATE_EMAIL);
             $password = $_POST['RegisterPassword'];
+            $user_email = $_SESSION["email"]; // Retrieve the current user's email from the session
 
             // Check if input data is valid
             if (!$name || !$email) {
@@ -120,14 +118,24 @@ class user {
                 return;
             }
 
-            // Hash the password
+            // Prepare the SQL statement
+            $query = "UPDATE users SET name = :name, email = :email";
+            if (!empty($password)) {
+                $query .= ", password = :password";
+            }
+            $query .= " WHERE email = :user_email";
+
+            $stmt = $db->prepare($query);
+
+            // Bind the values to the parameters
+            $stmt->bindParam(":name", $name);
+            $stmt->bindParam(":email", $email);
+            $stmt->bindParam(":user_email", $user_email);
+
             if (!empty($password)) {
                 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
                 $stmt->bindParam(":password", $hashedPassword);
             }
-
-            $stmt->bindParam(":name", $name);
-            $stmt->bindParam(":email", $email);
 
             $stmt->execute();
 
@@ -140,9 +148,12 @@ class user {
                 echo "Failed to update account";
             }
         } catch (Exception $e) {
+            echo $e->getMessage();
             die("Database connection error occurred.");
         }
     }
+
+
 }
 
 ?>
