@@ -2,11 +2,22 @@
 <project version="4">
   <component name="PublishConfigData" autoUpload="On explicit save action" serverName="icthardenberg" remoteFilesAllowedToDisappearOnAutoupload="false" autoUploadExternalChanges="true">
     <serverData>
+      <paths name="amp-it">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/home/u163631p152125/domains/amp-it.nl/public_html/wip/MVC" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="icthardenberg">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/domains/tristanknol.icthardenberg.nl/public_html" />
+            <mapping deploy="/" local="$PROJECT_DIR$" web="/domains/tristanknol.icthardenberg.nl/private_html" />
           </mappings>
+          <excludedPaths>
+            <excludedPath path="/connection.php" />
+            <excludedPath path="/views/layout.php" />
+          </excludedPaths>
         </serverdata>
       </paths>
     </serverData>

@@ -1,4 +1,5 @@
 <?php
+// If the user is logged in, show the create post form
 if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === TRUE) {
 ?>
     <div class="m-auto w-5/6 lg:w-8/12">

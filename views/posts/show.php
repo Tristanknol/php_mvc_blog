@@ -1,3 +1,4 @@
+<!--Show posts-->
 <div class="container m-auto px-5 lg:px-20">
     <div class="pb-10">
 <p class="text-purple-900 text-center font-bold text-2xl lg:text-4xl">This is the requested post</p>

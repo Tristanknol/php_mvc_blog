@@ -1,15 +1,18 @@
 <?php
 class user {
+//    declare the variables
     public $email;
     public $id;
     public $password;
 
+//    create the constructor
     function __construct($email, $id, $password) {
      $this->email = $email;
      $this->id = $id;
      $this->password = $password;
     }
 
+//    create the login function
     public static function login($email, $password) {
 //        Get the database connection
         $db = db::getInstance();
@@ -23,14 +26,15 @@ class user {
 //            check for the results; does the account exist?
             if ($result){
                 if (password_verify($password, $result["password"])) {
-//                    session
+//                    session start and set the session variables
                     session_regenerate_id();
                     $_SESSION["name"] = $result["name"];
                     $_SESSION["email"] = $result["email"];
                     $_SESSION["loggedIn"] = TRUE;
                     header("location: ?controller=user&action=loggedIn");
                 } else {
-                    echo "incorrect password";
+//                    if the password is incorrect, show the error
+                    echo "<h1 class='px-20 text-center text-3xl text-purple-900'>incorrect password</h1>";
                 }
             } else {
                echo "account not found";
@@ -40,9 +44,10 @@ class user {
             die("Database connection error occurred.");
         }
     }
-
+//    create the signup function
     public static function signUp() {
         $db = db::getInstance();
+//        try to insert the new user into the database
         try {
             $query = "INSERT INTO users (name, email, password) VALUES (:name, :email, :password)";
             $stmt = $db->prepare($query);
@@ -77,32 +82,13 @@ class user {
             } else {
                 echo "Account not created";
             }
+//            if the insertion failed, show the error
         } catch (Exception $e) {
             die("Database connection error occurred.");
         }
     }
 
-    public static function createUser() {
-            require_once "connection.php";
-            $pdo = Db::getInstance();
-            $createpost = $pdo->prepare("INSERT INTO posts (author, title, content, slug, date) VALUES (:author, :title, :content, :slug, :date)");
-            if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["createSubmit"])) {
-                $author = isset($_POST['Author']) ? $_POST['Author'] : '';
-                $title = isset($_POST['Title']) ? $_POST['Title'] : '';
-                $content = isset($_POST['Content']) ? $_POST['Content'] : '';
-                $slug = isset($_POST['Slug']) ? $_POST['Slug'] : '';
-                $date = isset($_POST['Date']) ? $_POST['Date'] : '';
-                $createpost->bindParam(':author', $author);
-                $createpost->bindParam(':title', $title);
-                $createpost->bindParam(':content', $content);
-                $createpost->bindParam(':slug', $slug);
-                $createpost->bindParam(':date', $date);
-                $createpost->execute();
-                header("refresh: 0");
-            }
-    }
-
-
+//   create the logout function
     public static function editUser() {
         $db = db::getInstance();
         try {
@@ -114,7 +100,7 @@ class user {
 
             // Check if input data is valid
             if (!$name || !$email) {
-                echo "Invalid input data";
+                echo "<h1 class='px-20 text-3xl text-purple-900'>Invalid input data<h1>";
                 return;
             }
 
@@ -145,15 +131,13 @@ class user {
                 $_SESSION["email"] = $email;
                 header("location: ?controller=user&action=loggedIn");
             } else {
-                echo "Failed to update account";
+                echo "<h1 class='px-20 text-3xl text-purple-900'>submit failed please make an edit before submitting</h1>";
             }
+//            catch the error if the update failed
         } catch (Exception $e) {
             echo $e->getMessage();
             die("Database connection error occurred.");
         }
     }
-
-
 }
-
 ?>

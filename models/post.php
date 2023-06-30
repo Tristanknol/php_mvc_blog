@@ -1,5 +1,6 @@
 <?php
 class post {
+//    declare all the variables
     public $ID;
     public $Author;
     public $Title;
@@ -32,28 +33,27 @@ class post {
 //    find a post by ID
     public static function find($ID) {
         $db = Db::getInstance();
+//         we make sure $id is an integer
         $ID = intval($ID);
+//        database query, we select all the data from the post with the ID that is given
         $req = $db->prepare("SELECT * FROM posts WHERE ID = :ID");
         $req->execute(["ID" => $ID]);
         $post = $req->fetch();
         return new Post($post["ID"], $post["Author"], $post["Title"], $post["Content"], $post["Slug"], $post["Date"]);
     }
 
-    public static function findPost() {
-        $pdo = Db::getInstance();
-        $post = $pdo->prepare("SELECT * FROM posts WHERE id = :id");
-        $post->bindParam(':id', $getid);
-        $post->execute();
-        $postRow = $post->fetch();
-    }
 
+//    delete a post
     public static function deletePost(){
         $pdo = Db::getInstance();
+//        prepare the query
             $deletepost = $pdo->prepare("DELETE FROM posts WHERE id = :id");
+//            check if ID is set, if not, get ID from URL
             $id = isset($_POST['ID']) ? $_POST['ID'] : '';
              if (isset($_GET['ID'])) {
             $id = $_GET['ID'];
                  }
+//             bindParam() binds the named parameter marker to the specified parameter
             $deletepost->bindParam(':id', $id);
             $deletepost->execute();
             echo "<div class='fixed top-0 bg-white text-center w-full h-full flex flex-col items-center justify-center'>
@@ -62,10 +62,12 @@ class post {
             </div>";
         }
 
+//    create a post function
     public static function createPost() {
         $pdo = Db::getInstance();
         $createpost = $pdo->prepare("INSERT INTO posts (author, title, content, slug, date) VALUES (:author, :title, :content, :slug, :date)");
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["createSubmit"])) {
+            //      check if ID is set, if not, get ID from URL
             $author = isset($_POST['Author']) ? $_POST['Author'] : '';
             $title = isset($_POST['Title']) ? $_POST['Title'] : '';
             $content = isset($_POST['Content']) ? $_POST['Content'] : '';

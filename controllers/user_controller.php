@@ -12,7 +12,9 @@
 //require the model for the user
 require_once ("models/user.php");
 
+//create the class UserController
  class UserController {
+//     show a succes message when the user is logged in
      public function loggedIn() {
          require_once("views/user/logged-in.php");
      }
@@ -20,13 +22,13 @@ require_once ("models/user.php");
         public function showLogin() {
             require_once("views/user/login.php");
         }
-
+//        function to show the logged out page
          public function loggedOut() {
             require_once("views/user/logged-out.php");
         }
 
 
-
+//       function to sign in
     public function signIn() {
 //        check the data for both post requests
         $email = $_POST["email"];
@@ -41,7 +43,6 @@ require_once ("models/user.php");
         } else {
             echo "email is required";
     }
-        $user = user::login($email, $password);
     }
 
 
@@ -51,19 +52,23 @@ require_once ("models/user.php");
             header("location: ?controller=user&action=loggedOut");
         }
 
+//        function to show the profile page
     public function showProfile() {
         require_once("views/user/profile.php");
     }
 
+    //        function to show the sign up page
         public function showSignUp() {
             require_once("views/user/sign-up.php");
         }
 
+        // function to sign up
         public function signUp() {
        $name = $_POST["RegisterName"];
        $email = $_POST["RegisterEmail"];
        $password = $_POST["RegisterPassword"];
 
+//       validate the values for both POST request, if both fields from the form are filled try login in by calling the user model with the $email.
        if (!empty($name)) {
            if (!empty($email)) {
                if (!empty($password)) {
@@ -80,10 +85,12 @@ require_once ("models/user.php");
        }
         }
 
+//        function to save the user
         public function saveUser() {
             $user = user::saveUser();
         }
 
+//        function to edit the user
     public function editUser() {
         user::editUser();
     }

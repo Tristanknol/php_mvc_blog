@@ -22,6 +22,7 @@
     echo "</tbody></table>";
     ?>
     </div>
+<!--    Only show the create button if the user is logged in-->
 <?php if (isset($_SESSION["loggedIn"]) && $_SESSION["loggedIn"] === TRUE) { ?>
     <div>
         <h1 class="text-4xl pb-10 text-purple-900">Create a post</h1>
