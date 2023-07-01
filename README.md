@@ -15,3 +15,7 @@
 1. You can view the project on my school website: www.tristanknol.icthardenberg.nl
 2. You can view the project on my website: www.amp-it.nl/wip/MVC
 ```
+
+## Built With tailwindcss as framework
+## Authors Tristan Knol - Initial work - [TristanKnol]
+## Only 2 background colors are used to nut ruin the design!
