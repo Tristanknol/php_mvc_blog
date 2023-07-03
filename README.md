@@ -5,7 +5,7 @@
 2. Clone this repository into the htdocs folder of MAMP or XAMPP.
 3. Create a database called "mvc" in phpMyAdmin.
 4. Import the mvc.sql file into the database.
-5. Connect to the database in the connection.php file.
+5. Connect to the database in the connection.php file make sure all the credentials are right.
 6. Run the project on localhost:8888/php_mvc_blog.
 7. Make an account and login you can make an account by clicking on "login" and then on "No account? Sign up".
 8. You can now create, edit and delete posts have fun!
