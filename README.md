@@ -13,7 +13,6 @@
 
 # Other places you can view the project.
 1. You can view the project on my school website: www.tristanknol.icthardenberg.nl
-2. You can view the project on my website: www.amp-it.nl/wip/MVC
 ```
 
 ## Built With tailwindcss as framework
