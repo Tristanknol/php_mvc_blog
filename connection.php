@@ -1,5 +1,4 @@
 <?php
-// connect to the database
 class Db {
     private static $instance = NULL;
 
@@ -11,7 +10,8 @@ class Db {
     public static function getInstance() {
         if(!isset(self::$instance)) {
         $pdo_options[PDO::ATTR_ERRMODE] = PDO::ERRMODE_EXCEPTION;
-        self::$instance = new PDO("mysql:host=localhost;dbname=php_mvc", "root", "", $pdo_options);
+        // Set the credentials for the database here
+        self::$instance = new PDO("mysql:host=localhost;dbname=mvc", "root", "", $pdo_options);
         }
         return self::$instance;
     }
